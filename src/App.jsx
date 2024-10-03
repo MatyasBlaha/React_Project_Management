@@ -21,6 +21,7 @@ function App() {
                 text: text
             };
 
+
             return {
                 ...prevState,
                 tasks: [...prevState.tasks, newTask]
@@ -93,12 +94,15 @@ function App() {
         })
     }
 
+    const projectTasks = projectState.tasks.filter(
+        (task) => task.projectId === projectState.selectedProjectId
+    );
 
     const selectedProject = projectState.projects.find(project => project.id === projectState.selectedProjectId)
 
     let content = <SelectedProject
         project={selectedProject}
-        tasks={projectState.tasks}
+        tasks={projectTasks}
         onDelete={handleDeleteProject}
         onAddTask={handleAddTask}
         onDeleteTask={handleDeleteTask}
@@ -119,7 +123,7 @@ function App() {
               onAddProject={handleStartAddProject}
               projects={projectState.projects}
               onSelectProject={handleSelectProject}
-
+              selectedProjectId={projectState.selectedProjectId}
           />
           {content}
       </main>
